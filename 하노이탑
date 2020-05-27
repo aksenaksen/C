@@ -1,0 +1,24 @@
+#include<stdio.h>
+void  hanoi(char give,char tmp,char take,int n){
+  if(n==1){
+    
+    printf("%c %c\n",give,take);
+    return;}
+  hanoi(give,take,tmp,n-1);
+ 
+  printf("%c %c\n",give ,take);
+  hanoi(tmp,give,take,n-1);
+}
+
+int main(void){
+    int n;
+    scanf("%d",&n);
+    int tmp=1;
+for(int i=0;i<n;i++){    
+ tmp*=2;
+}
+printf("%d\n",tmp-1);
+    hanoi('1','2','3',n);
+      
+    return 0;
+}
