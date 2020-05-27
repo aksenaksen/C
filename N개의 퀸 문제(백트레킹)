@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<stdlib.h>
+int count;
+int hang[100];/*이 함수는 행을 나타내는 함수 이다.*/
+int queenright(int level);
+void queen(int level,int N){/*퀸의 가지수를 샌다level함수는 함수의 깊이를 나타낸다.*/
+    if(queenright(level)==0){
+                       /*퀸이 들어 갈 수 있다면 다음을 계속해서 실행*/
+    for(int i=1;i<=N;i++)/*행의 끝까지 검사한다.*/{
+        hang[level+1]=i;
+        /*행을 늘려가며 하나씩 검사해준다.*/
+        queen(level+1,N);/*재귀함수로 깊이가 다다를때까지 계속검사한다.*/
+    }
+     if(level==N){/*퀸이 들어갈 수 있는지 아닌지를 검사.*/
+     count++;
+     return;
+    }
+    }
+}
+int queenright(int level)/*퀸이 그 자리에 있어도 되는지 판별하는 함수*/{
+    for(int i=1;i<level;i++){/*첫행은 검사할 필요가 없음*/
+    if(hang[i]==hang[level]||abs(level-i)==abs(hang[level]-hang[i]))
+        return 1;
+    }
+    return 0;
+}
+    
+    
+    
+    
+    
+int main(void){
+    int N;
+    scanf("%d",&N);/*N*N에서 N을 입력해준다.*/
+    queen(0,N);
+    printf("%d",count);
+}
