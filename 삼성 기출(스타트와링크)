@@ -1,0 +1,57 @@
+#include<stdio.h>/*아직 개선의 여지가 보이는거같음 추후 수정*/
+#include<stdlib.h>
+int player[50] = { 0 };
+int team[20][20];
+int start[20];
+int rink[20];
+int min=100;
+void balance(int num,int i);
+int N;
+int main(void) {
+
+	scanf("%d", &N);
+
+	for (int i = 0; i <N; i++) {
+		for (int j = 0; j <N; j++) {
+			scanf("%d", &team[i][j]);
+		}
+	}
+	balance(0,0);
+	printf("%d", min);
+	return 0;
+}
+void balance(int num,int number) {
+	if (num == N / 2) {
+		int count = 0;
+		int count2 = 0;
+		for (int i = 0; i <N; i++) {
+			if (player[i] == 1) {
+				start[count++] = i;
+			}
+			else
+			{
+				rink[count2++] = i;
+			}
+		}
+		int sum = 0;
+		int sum2 = 0;
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < count; j++) {
+				sum += team[start[i]][start[j]];
+				sum2 += team[rink[i]][rink[j]];
+			}
+		}
+		
+		if (min > abs(sum-sum2))
+			min = abs(sum-sum2);
+      return ;
+	}
+	
+	for (int i = number+1; i <N; i++) {
+		if (player[i]==0) {
+			player[i] = 1;
+			balance(num + 1,i);
+		    player[i] = 0;
+		}
+	}
+}
